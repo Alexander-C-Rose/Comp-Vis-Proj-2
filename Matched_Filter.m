@@ -1,11 +1,11 @@
 %pretend these are inputs to the function
-filter_num = 4; % Number of filters to be created
-image=imread('retina1.jpg'); 
-J1(:,:)=image(:,:,2); % I1 in height x width x RGB value
-sigma = 1;
-filter_size = 7;
+% filter_num = 12; % Number of filters to be created
+% image=imread('retina1.jpg'); 
+% image(:,:)=image(:,:,2); % I1 in height x width x RGB value
+% sigma = 1;
+% filter_size = 7;
 
-% function [outputArg1,outputArg2] = Matched_Filter(image, filter_size, sigma)
+function [BW, I_bank, Filter_Bank, Ker_pad] = Matched_Filter(image, sigma, filter_size, filter_num)
 %% Create matched filter Group
 
 % This variable is used frequently for various operations.
@@ -60,15 +60,16 @@ end
 
 % create a bank of filtered images
 for i = 1:filter_num
-    I = conv2(Filter_Bank(:,:,i), J1);
-    I_bank(:,:,i) = I;
+    I = conv2(Filter_Bank(:,:,i), image);
+    I_bank(:,:,i) = I; % I_bank stores the images 
 end
-figure(1);
-montage(I_bank);
+
+% figure(1);
+% montage(I_bank); % Display the bank for verification
 %% Fuse all filtered images
 
 %  assign the pixel value to be the maximum one across all filtered images
-s = size(J1);
+s = size(image);
 
 m = s(:,1);
 n = s(:,2);
@@ -83,13 +84,14 @@ end
 
 %% Find the appropriate threshold
 %  (MATLAB "GRAYTHRESH")
-gray_thresh = graythresh(I);
+T = graythresh(I);
 
 
 %% Binarize the image data
 %  (Matlab "IM2BW")
-BW = imbinarize(I, gray_thresh);
-figure(2);
-imshow(BW);
-%end
+BW = imbinarize(I, T);
+% figure(2);
+% imshowpair(BW, I, "montage"); % verification
+
+end
 

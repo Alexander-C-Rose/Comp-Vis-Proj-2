@@ -10,7 +10,7 @@ imshow(J1);
 
 %% Run the Matched Filtering
 
-%
+[BW, I_bank, Filter_Bank, Ker_pad] = Matched_Filter(J1, 3, 5, 12);
 
 
 %% Length Filtering
@@ -25,5 +25,5 @@ imshow(J1);
 % display image: "montage" for side-by-side; "falsecolor" for layered image; 
 % imshowpair(J1, I_Canny, I_LoG, "montage");
 
-I_list = {J1, I_Canny, I_LoG};
+I_list = {J1, I_Canny, I_LoG, BW};
 montage(I_list);
