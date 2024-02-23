@@ -6,7 +6,7 @@ I1=imread('retina1.jpg');
 I2=imread('retina2.jpg'); 
 J1(:,:)=I1(:,:,2); % I1 in height x width x RGB value
 J2(:,:)=I2(:,:,2);
-
+imshow(J1);
 
 %% Run the Matched Filtering
 
