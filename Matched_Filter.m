@@ -1,17 +1,12 @@
-%pretend these are inputs to the function
-% filter_num = 12; % Number of filters to be created
-% image=imread('retina1.jpg'); 
-% image(:,:)=image(:,:,2); % I1 in height x width x RGB value
-% sigma = 1;
-% filter_size = 7;
-
 function [BW, I_bank, Filter_Bank, Ker_pad] = Matched_Filter(image, sigma, filter_size, filter_num)
-%% Create matched filter Group
+% This function filters the image, 
 
 % This variable is used frequently for various operations.
 % It represents the half of the filter_size (odd) rounded to zero. 
 x = double(idivide(int64(filter_size), int64(2), 'fix'));
 
+%% Create the Kernel
+% preallocate matrix size with zeros
 Ker = zeros(1, filter_size);
 for j = -x:x % corresponding to the column
         % breaking the 1D Gaussian function down for readability
@@ -35,7 +30,9 @@ for i = 1:filter_size-1
     Ker = [Ker; Ker_temp];
 end
 
-% pad with zeros before rotation (the +1 keeps the matrix odd)
+
+%% Create a bank of filters at different rotations
+% Pad filter kernel with zeros before rotation (the +1 keeps the matrix odd)
 Ker_pad = zeros(filter_size*2+1); 
 for j = 1:filter_size
     for i = 1:filter_size
@@ -45,7 +42,6 @@ for j = 1:filter_size
     end
 end
 
-% imshowpair(Ker_pad, Ker, "montage"); % visual verification of filter
 % Create Filter Bank
 theta = 0;
 Filter_Bank = [];
@@ -55,7 +51,7 @@ for i = 1:filter_num
     theta = theta + 180/filter_num; % increase rotation by 180/number of filters
 end
 
-%montage(Filter_Bank); %visual verification of filter bank
+
 %% Apply Kernel to the image (i.e. filter)
 
 % create a bank of filtered images
@@ -64,8 +60,7 @@ for i = 1:filter_num
     I_bank(:,:,i) = I; % I_bank stores the images 
 end
 
-% figure(1);
-% montage(I_bank); % Display the bank for verification
+
 %% Fuse all filtered images
 
 %  assign the pixel value to be the maximum one across all filtered images
@@ -82,16 +77,10 @@ for i = 1:filter_num
 end
 
 
-%% Find the appropriate threshold
+%% Find the appropriate threshold and binarize the image data
 %  (MATLAB "GRAYTHRESH")
 T = graythresh(I);
-
-
-%% Binarize the image data
-%  (Matlab "IM2BW")
 BW = imbinarize(I, T);
-% figure(2);
-% imshowpair(BW, I, "montage"); % verification
 
 end
 
