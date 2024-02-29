@@ -22,18 +22,13 @@ LF_1(627:633,:) = [];
 LF_1(1:7,:) = [];
 LF_1(:,1:3) = [];
 
-% figure(1);
-% imshowpair(BW1, LF_1, "falsecolor");
-% figure(2);
-% imshowpair(BW2, LF_2, "falsecolor");
-
 
 %% Pick images to be displayed
 Show_I1 = false; % show image 1
-Show_I2 = true; % show image 2
+Show_I2 = false; % show image 2
 
-% this counts which figure I'm at so I don't have to manually adjust
-% figures each time I add a new one.
+% this variable counts which figure I'm at so I don't have to manually 
+% adjust figures each time I add a new one.
 fig_num = 0;
 
 
