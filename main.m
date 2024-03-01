@@ -9,7 +9,7 @@ J2(:,:)=I2(:,:,2);
 
 
 %% Run the Matched Filtering
-[BW1, I_bank1, Filter_Bank1, Ker_pad1] = Matched_Filter(J1, 8, 9, 10);
+[BW1, I_bank1, Filter_Bank1, Ker_pad1] = Matched_Filter(J1, 8, 9, 10); %8, 9, 10 best
 [BW2, I_bank2, Filter_Bank2, Ker_pad2] = Matched_Filter(J2, 11, 11, 5);
 
 
@@ -24,7 +24,7 @@ LF_1(:,1:3) = [];
 
 
 %% Pick images to be displayed
-Show_I1 = false; % show image 1
+Show_I1 = true; % show image 1
 Show_I2 = false; % show image 2
 
 % this variable counts which figure I'm at so I don't have to manually 
