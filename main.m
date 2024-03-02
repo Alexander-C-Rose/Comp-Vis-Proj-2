@@ -9,7 +9,7 @@ J2(:,:)=I2(:,:,2);
 
 
 %% Run the Matched Filtering
-[BW1, I_bank1, Filter_Bank1, Ker_pad1] = Matched_Filter(J1, 8, 9, 10); %8, 9, 10 best
+[BW1, I_bank1, Filter_Bank1, Ker_pad1] = Matched_Filter(J1, 8, 9, 10);
 [BW2, I_bank2, Filter_Bank2, Ker_pad2] = Matched_Filter(J2, 11, 11, 5);
 
 
@@ -25,7 +25,7 @@ LF_1(:,1:3) = [];
 
 %% Pick images to be displayed
 Show_I1 = true; % show image 1
-Show_I2 = false; % show image 2
+Show_I2 = true; % show image 2
 
 % this variable counts which figure I'm at so I don't have to manually 
 % adjust figures each time I add a new one.
@@ -75,7 +75,6 @@ end % End of Display Image 1
 if(Show_I2)
 %  thresh seems to work best.
 % default thresh = [0.025, 0.0625]
-[I_Canny2, threshOut_C2] = edge(J2, "canny");
 [I_Canny2] = edge(J2, "canny", [0.07 0.075]);
 [I_LoG2, threshOut_L2] = edge(J2, "log");
 
